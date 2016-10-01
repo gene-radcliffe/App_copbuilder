@@ -1,0 +1,33 @@
+<cops>
+<project type="L1900">
+
+</project>
+<project type="NSB">
+	<item>Placard</item>
+<item>Overall_Equipment_Area</item>
+<item>AAV_Cabinet_With_Door_Open</item>
+<item>Existing_CMPND_Angles</item>
+<item>Issues</item>
+<item>Placard</item>
+<item>GPS</item>
+<item>GPS</item>
+<item>RBS</item>
+<item>RBS_BRKR_LABLES</item>
+<item>RBS_CBL_Conduits</item>
+<item>Disconnect_Meterbase</item>
+<item>Cabinets_Grnd_Connection</item>
+<item>Cabinets_Line_Termination</item>
+<item>Router_Line_Termination</item>
+<item>Router_Opp_End_Line_Termination</item>
+<item>Cabinets_Subrcks</item>
+<item>Log_Book</item>
+<item>Hdw_to_Rtrn</item>
+<item>Work_Area_PC</item>
+<item>Cmpnd</item>
+<item>AAV_Cabinet</item>
+<item>AAV_DC_Conn_Brkr</item>
+<item>Install_Ovrall</item>
+</project>
+
+</cops>
+
