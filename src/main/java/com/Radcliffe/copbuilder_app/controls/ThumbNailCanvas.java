@@ -147,22 +147,32 @@ public class ThumbNailCanvas extends Canvas implements MouseListener, MouseMotio
 		 * Previous
 		 */
 		if(e.getX() <=100 && e.getY() <=100 ){
-			if(imgIndex <=0){
+			
+			
+			if(imgIndex > 0){
 				imgIndex--;
 				
 				ThumbNailViewEvent event = new ThumbNailViewEvent(this, ThumbNailButtons.PREVIOUS, listFiles.get(imgIndex).toString(), imgIndex);
 				fireEvents(event);
 				
 			}
+			
+			
 			/*
 			 * Next
 			 */
-		}else if(e.getX()>=canvasDim.width-100 && e.getY() <=50 ) {
-			System.out.println("Click");
-			imgIndex++;
-			ThumbNailViewEvent event = new ThumbNailViewEvent(this, ThumbNailButtons.NEXT, listFiles.get(imgIndex).toString(), imgIndex);
-			fireEvents(event);
+		}else if(e.getX()>=canvasDim.width-100 && e.getY() <=100 ) {
 			
+			int size =0;
+			if(listFiles!=null)
+				size = listFiles.size();
+			
+			if (imgIndex < (size-1)){
+				imgIndex++;
+				System.out.println(imgIndex + " " + listFiles.size());
+				ThumbNailViewEvent event = new ThumbNailViewEvent(this, ThumbNailButtons.NEXT, listFiles.get(imgIndex).toString(), imgIndex);
+				fireEvents(event);
+			}
 			
 		}
 	
@@ -197,7 +207,7 @@ public class ThumbNailCanvas extends Canvas implements MouseListener, MouseMotio
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-		//System.out.println("x and Y: "+ e.getX() + " " + e.getY());
+		System.out.println("x and Y: "+ e.getX() + " " + e.getY());
 	}
 
 	@Override
