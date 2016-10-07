@@ -21,26 +21,6 @@ import javax.swing.*;
 import javax.imageio.event.IIOReadProgressListener;
 import java.io.*;
 public class PictureFrame extends JPanel implements  MouseMotionListener, ComponentListener, IIOReadProgressListener {
-	private Rectangle Rect;
-	private ImageProcessor imgProc;
-	private Border lineBorder;
-	private File backGroundFile; 
-	
-	private BufferedImage bufferImage;
-	private BufferedImage bkBufferImage;
-    private boolean loadingImage=false;
-   
-    int px, py;
-    int pw, ph;
-    private TextLayout txtLayout;
-    private FontRenderContext fontRender;
-    Font font = new Font("Arial", Font.BOLD, 32);
-    private String title1 = "Loading Picture";
- 
-	private String bufferImageStr;
-	private int xWidth=1148;
-	private int yHeight = 460;
-	private String BACKGROUNDIMG ="src/main/resources/picframe.png";
 	
 	public PictureFrame(){
 		
@@ -221,6 +201,7 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 		System.out.println("Progress: " + arg1);
 		if(arg1>=100.0f){
 			this.loadingImage=false;
+
 		}
 		drawProgress(arg1);
 	}
@@ -288,5 +269,25 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 	
 	}
 
+	private Rectangle Rect;
+	private ImageProcessor imgProc;
+	private Border lineBorder;
+	private File backGroundFile; 
+	
+	private BufferedImage bufferImage;
+	private BufferedImage bkBufferImage;
+    private boolean loadingImage=false;
+   
+    int px, py;
+    int pw, ph;
+    private TextLayout txtLayout;
+    private FontRenderContext fontRender;
+    Font font = new Font("Arial", Font.BOLD, 32);
+    private String title1 = "Loading Picture";
+ 
+	private String bufferImageStr;
+	private int xWidth=1148;
+	private int yHeight = 460;
+	private String BACKGROUNDIMG ="src/main/resources/picframe.png";
 	
 }
