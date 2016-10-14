@@ -130,10 +130,13 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 	
 
 	
-	private void drawProgress(){
+	private void drawProgress(float prog){
 		
 		int x = 0;
 		int y=0;
+		
+			title1 = String.format("%2.0f",prog  );
+			title1= title1 + "% Loaded";
 			image = bkBufferImage;
 			Graphics2D imageCanvas = image.createGraphics();
 			imageCanvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -141,7 +144,7 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 			 this.fontRender = imageCanvas.getFontRenderContext();
 			
 			 imageCanvas.setColor(new Color(255,200,60));
-			 //imageCanvas.fillRect(1, 1,this.getWidth(), this.getHeight());
+			 imageCanvas.fillRect(0, 0,this.getWidth(), this.getHeight());
 			
 			//draw a string on the canvas
 			 imageCanvas.setFont(font);
@@ -163,7 +166,7 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 			y = this.getHeight()/2;
 			y =y-(yHeight/2);
 		
-			imageCanvas.drawImage(image, x,y,xWidth,yHeight, null);
+			//imageCanvas.drawImage(image, x,y,xWidth,yHeight, null);
 			Graphics2D g = (Graphics2D)this.getGraphics();
 			g.drawImage(image, x,y,xWidth,yHeight, null);
 
@@ -207,7 +210,7 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 		// TODO Auto-generated method stub
 		if(arg1>97)
 			this.loadingImage=false;
-		drawProgress();
+		drawProgress(arg1);
 		System.out.println("loading");
 	
 	}
