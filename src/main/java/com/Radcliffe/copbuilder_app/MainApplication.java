@@ -51,37 +51,8 @@ import com.Radcliffe.copbuilder_app.controls.ThumbNailViewEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 public class MainApplication extends JFrame implements ActionListener, ThumbNailListener{
-	/**
-	 * 
-	 */
-	Toolkit toolkit = Toolkit.getDefaultToolkit();
-	private Dimension fDim = new Dimension(toolkit.getScreenSize());
-	private Dimension jDim = new Dimension(1920,150);
-	private String Directory;
-	private FileFilter Ffilter;
-	/*
-	 * Logger
-	 */
-	//private Logger log;
 	
-	private File[] Filenames;
-	private JFileChooser JFileCh;
-	private File workingDir;
-	private File SelectedDir;
-	private JMenu menuFile;
-	private JMenuItem menuItem;
-	private JMenuBar menuBar;
-	private GroupLayout groupLayout;
-	private BoxLayout layout;
-	// ********************
-	// *     CANVASES     *
-	// ********************
-	private ThumbNailCanvas tnc; // Thumbnail canvas, the control that lets you scroll through items
-	private MainImageCanvas mImageCanvas; // this is the main canvas where the main image will appear
-	private ControlPanel controlPane; // this is the bottom panel
-	// 
-	List<AppImages> imageFiles;
-	private int imageIndex =1;
+	
 
 	{
 		
@@ -372,7 +343,37 @@ public class MainApplication extends JFrame implements ActionListener, ThumbNail
 		mImageCanvas.setImage(tnle.getFile());
 		controlPane.setFileName(tnle.getFile());
 	}
+	/**
+	 * 
+	 */
+	Toolkit toolkit = Toolkit.getDefaultToolkit();
+	private Dimension fDim = new Dimension(toolkit.getScreenSize());
+	private Dimension jDim = new Dimension(1920,150);
+	private String Directory;
+	private FileFilter Ffilter;
+	/*
+	 * Logger
+	 */
+	//private Logger log;
 	
+	private File[] Filenames;
+	private JFileChooser JFileCh;
+	private File workingDir;
+	private File SelectedDir;
+	private JMenu menuFile;
+	private JMenuItem menuItem;
+	private JMenuBar menuBar;
+	private GroupLayout groupLayout;
+	private BoxLayout layout;
+	// ********************
+	// *     CANVASES     *
+	// ********************
+	private ThumbNailCanvas tnc; // Thumbnail canvas, the control that lets you scroll through items
+	private MainImageCanvas mImageCanvas; // this is the main canvas where the main image will appear
+	private ControlPanel controlPane; // this is the bottom panel
+	// 
+	List<AppImages> imageFiles;
+	private int imageIndex =1;
 	
 }
 

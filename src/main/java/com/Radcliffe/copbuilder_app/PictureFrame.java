@@ -20,6 +20,7 @@ import javax.swing.border.*;
 import javax.swing.*;
 import javax.imageio.event.IIOReadProgressListener;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 public class PictureFrame extends JPanel implements  MouseMotionListener, ComponentListener, IIOReadProgressListener {
 	
 	public PictureFrame(){
@@ -27,7 +28,7 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 		
 		backGroundFile = new File(BACKGROUNDIMG);
 		imgProc = new ImageProcessor();
-		
+		imgProc.addIIOReadProgessListener(this);
 		try{
 			
 			bkBufferImage = ImageIO.read(backGroundFile);
@@ -44,33 +45,36 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 	
 	protected BufferedImage loadPicture(){
 	
-		
-		this.loadingImage= true;
-		
-		if(bufferImage!=null){
-	
-			if(bufferImageStr != null){
+			if(bufferImageStr == null){
+				return bkBufferImage;
+			}
 				
+			
 				try{
-				imgProc.addIIOReadProgessListener(this);
+					
+					System.out.println("setting to true: " + loadingImage);
+				
 				bufferImage = imgProc.loadImage(new File(bufferImageStr));
 				}catch(IOException ioe){
 					ioe.printStackTrace();
 				}
-				bufferImageStr= null;
-			}
-		   /*
-		    * Resize images.
-		    * Unprocessed / unresized images will have higher width and height values 
-		    */
-			if((bufferImage.getWidth()>767) && (bufferImage.getHeight()>1914)){
+
+				
+				
+					/*
+				    * Resize images.
+				    * Unprocessed / unresized images will have higher width and height values 
+				    */
+					if((bufferImage.getWidth()>767) && (bufferImage.getHeight()>1914)){
+					
+					xWidth = bufferImage.getWidth() /6;
+					yHeight = bufferImage.getHeight()/6;
+					
+					}
 			
-			xWidth = bufferImage.getWidth() /6;
-			yHeight = bufferImage.getHeight()/6;
-			}
-			}
+			return bufferImage;
 		
-		return bufferImage;
+		
 	}
 
 	public void setPicture(BufferedImage image){
@@ -80,6 +84,7 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 
 	public void setPicture(String image){
 		this.bufferImageStr = image;
+		loadImage=true;
 		this.repaint();
 	}
 	protected void paintComponent(Graphics g){
@@ -88,81 +93,82 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 		Draw(g2);
 		
 	}
-	private void drawProgress(float progress){
-		java.awt.Rectangle rect;
-		java.awt.Color color;
-		int cx = 0;
-		int cy=0;
-		
-		
-	
-		/*
-		 * Calculate the Center
-		 */
-		cx = this.getWidth()/2;
-		cy = this.getHeight()/2;
-	
-		
-		
-		
-		
-		
-		
-	}
 	public void Draw(Graphics2D g) {
-		// TODO Auto-generated method stub
 		
 		int x=0;
 		int y=0;
-		BufferedImage image=null;
-		//create blank canvas for the progress counter
-		image =this.bkBufferImage;
-		Graphics2D imgcanvas = image.createGraphics();
-	
-		if( this.loadingImage==true){
-			
-			 imgcanvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			 imgcanvas.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);		 
-			 this.fontRender = imgcanvas.getFontRenderContext();
-			
-			//    imgcanvas.setColor(new Color(255,200,60));
-				imgcanvas.fillRect(1, 1,this.getWidth(), this.getHeight());
-				
-				//draw a string on the canvas
-				imgcanvas.setFont(font);
-				TextLayout tl = new TextLayout(title1,font,this.fontRender);
-				
-				//position our title center
-				x = (int) ((this.getWidth()/2) - (tl.getBounds().getWidth()/2));
-				y= (int) ((this.getHeight()/2) - (tl.getBounds().getHeight()/2));
-				
-				imgcanvas.setColor(new Color(50,50,50));
-				tl.draw(imgcanvas, x+2, y+2);
-				
-				imgcanvas.setColor(new Color(255,255,255));
-				tl.draw(imgcanvas, x, y);
-				
-				
-				
+		if(loadImage==false)
+			image=loadPicture();
 		
-				
-			
-		}else{
+		//create blank canvas for the progress counter
+		if(loadImage==true){
 			
 			image = loadPicture();
+			
+			/*
+			 * put progress drawing here?
+			 * 
+			 * 
+			 * 
+			 * drawProgress(g);
+			 */
+			
+			
+
+		}
+		
+		
+		
+		x =this.getWidth()/2;
+		x = x -(xWidth/2);
+		y = this.getHeight()/2;
+		y =y-(yHeight/2);
+		System.out.print("Drawing the image");
+		g.drawImage(image, x,y,xWidth,yHeight, null);
+		g.dispose();
+	}
+	
+
+	
+	private void drawProgress(){
+		
+		int x = 0;
+		int y=0;
+			image = bkBufferImage;
+			Graphics2D imageCanvas = image.createGraphics();
+			imageCanvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			imageCanvas.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);		 
+			 this.fontRender = imageCanvas.getFontRenderContext();
+			
+			 imageCanvas.setColor(new Color(255,200,60));
+			 //imageCanvas.fillRect(1, 1,this.getWidth(), this.getHeight());
+			
+			//draw a string on the canvas
+			 imageCanvas.setFont(font);
+			TextLayout tl = new TextLayout(title1,font,this.fontRender);
+			
+			//position our title center
+			x = (int) ((this.getWidth()/8) - (tl.getBounds().getWidth()/8));
+			y= (int) ((this.getHeight()/6) - (tl.getBounds().getHeight()/6));
+			
+			imageCanvas.setColor(new Color(50,50,50));
+			tl.draw(imageCanvas, x+2, y+2);
+			
+			imageCanvas.setColor(new Color(255,255,255));
+			tl.draw( imageCanvas, x, y);
+			System.out.println("drawing progress" + this.loadingImage);
 			
 			x =this.getWidth()/2;
 			x = x -(xWidth/2);
 			y = this.getHeight()/2;
 			y =y-(yHeight/2);
 		
-			//g.drawImage(image, x,y,xWidth,yHeight, null);
-			
-		}	
-		
-		g.drawImage(image, x,y,xWidth,yHeight, null);
-		g.dispose();
+			imageCanvas.drawImage(image, x,y,xWidth,yHeight, null);
+			Graphics2D g = (Graphics2D)this.getGraphics();
+			g.drawImage(image, x,y,xWidth,yHeight, null);
+
 	}
+	
 		
 			
 	public void componentHidden(ComponentEvent e) {
@@ -191,20 +197,21 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 	@Override
 	public void imageComplete(ImageReader arg0) {
 		// TODO Auto-generated method stub
-		
+		this.loadingImage=false;
+		System.out.println("completed");
 	}
 
 
 	@Override
 	public void imageProgress(ImageReader arg0, float arg1) {
 		// TODO Auto-generated method stub
-		System.out.println("Progress: " + arg1);
-		if(arg1>=100.0f){
+		if(arg1>97)
 			this.loadingImage=false;
-
-		}
-		drawProgress(arg1);
+		drawProgress();
+		System.out.println("loading");
+	
 	}
+	
 
 
 	@Override
@@ -268,7 +275,7 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 		// TODO Auto-generated method stub
 	
 	}
-
+	BufferedImage image=null;
 	private Rectangle Rect;
 	private ImageProcessor imgProc;
 	private Border lineBorder;
@@ -277,7 +284,7 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 	private BufferedImage bufferImage;
 	private BufferedImage bkBufferImage;
     private boolean loadingImage=false;
-   
+    private boolean loadImage=false;
     int px, py;
     int pw, ph;
     private TextLayout txtLayout;

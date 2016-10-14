@@ -142,7 +142,7 @@ public class ThumbNailCanvas extends Canvas implements MouseListener, MouseMotio
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
-		System.out.println(e.getX() + ",  " + e.getY());
+		//System.out.println(e.getX() + ",  " + e.getY());
 		/*
 		 * Previous
 		 */
@@ -207,7 +207,7 @@ public class ThumbNailCanvas extends Canvas implements MouseListener, MouseMotio
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("x and Y: "+ e.getX() + " " + e.getY());
+		//System.out.println("x and Y: "+ e.getX() + " " + e.getY());
 	}
 
 	@Override
