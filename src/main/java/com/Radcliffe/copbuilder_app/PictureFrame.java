@@ -97,25 +97,13 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 		
 		int x=0;
 		int y=0;
+		
 		if(loadImage==false)
 			image=loadPicture();
 		
 		//create blank canvas for the progress counter
-		if(loadImage==true){
-			
+		if(loadImage==true)
 			image = loadPicture();
-			
-			/*
-			 * put progress drawing here?
-			 * 
-			 * 
-			 * 
-			 * drawProgress(g);
-			 */
-			
-			
-
-		}
 		
 		
 		
@@ -123,7 +111,7 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 		x = x -(xWidth/2);
 		y = this.getHeight()/2;
 		y =y-(yHeight/2);
-		System.out.print("Drawing the image");
+		
 		g.drawImage(image, x,y,xWidth,yHeight, null);
 		g.dispose();
 	}
@@ -141,9 +129,9 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 			Graphics2D imageCanvas = image.createGraphics();
 			imageCanvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			imageCanvas.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);		 
-			 this.fontRender = imageCanvas.getFontRenderContext();
+			this.fontRender = imageCanvas.getFontRenderContext();
 			
-			 imageCanvas.setColor(new Color(255,200,60));
+			 imageCanvas.setColor(new Color(235,223,161));
 			 imageCanvas.fillRect(0, 0,this.getWidth(), this.getHeight());
 			
 			//draw a string on the canvas
@@ -167,6 +155,7 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 			y =y-(yHeight/2);
 		
 			//imageCanvas.drawImage(image, x,y,xWidth,yHeight, null);
+			
 			Graphics2D g = (Graphics2D)this.getGraphics();
 			g.drawImage(image, x,y,xWidth,yHeight, null);
 
@@ -201,15 +190,14 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 	public void imageComplete(ImageReader arg0) {
 		// TODO Auto-generated method stub
 		this.loadingImage=false;
-		System.out.println("completed");
+		
 	}
 
 
 	@Override
 	public void imageProgress(ImageReader arg0, float arg1) {
 		// TODO Auto-generated method stub
-		if(arg1>97)
-			this.loadingImage=false;
+		
 		drawProgress(arg1);
 		System.out.println("loading");
 	
@@ -292,7 +280,7 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
     int pw, ph;
     private TextLayout txtLayout;
     private FontRenderContext fontRender;
-    Font font = new Font("Arial", Font.BOLD, 32);
+    Font font = new Font("Arial", Font.BOLD, 24);
     private String title1 = "Loading Picture";
  
 	private String bufferImageStr;
