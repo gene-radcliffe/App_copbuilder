@@ -61,6 +61,7 @@ public class MainImageCanvas extends Canvas implements ComponentListener, Contai
 		bi = new BufferedImage(this.getWidth() ,this.getHeight(), BufferedImage.TYPE_INT_RGB);
 		Graphics g= bi.createGraphics();
 		// Draw the background image with the canvas' width and height. Draw onto bi (buffer)
+		
 		g.drawImage(bkGroundImg, 0, 0,this.getWidth(),this.getHeight(), this);
 		return bi;
 	}
@@ -77,8 +78,10 @@ public class MainImageCanvas extends Canvas implements ComponentListener, Contai
 		}catch (IOException ioe){
 			ioe.printStackTrace();
 		}
+		
+		picFrame.paintComponent(g);;
 		g.dispose();		
-		picFrame.repaint();
+		
 		
 		
 	}

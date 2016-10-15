@@ -52,7 +52,6 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 			
 				try{
 					
-					System.out.println("setting to true: " + loadingImage);
 				
 				bufferImage = imgProc.loadImage(new File(bufferImageStr));
 				}catch(IOException ioe){
@@ -66,9 +65,11 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 				    * Unprocessed / unresized images will have higher width and height values 
 				    */
 					if((bufferImage.getWidth()>767) && (bufferImage.getHeight()>1914)){
-					
-					xWidth = bufferImage.getWidth() /6;
-					yHeight = bufferImage.getHeight()/6;
+					/*
+					 * old calculations for xWidth and yHeight
+					 */
+					//xWidth = (int) (bufferImage.getWidth() -  (bufferImage.getWidth() * 0.8));
+					//yHeight =(int) (bufferImage.getHeight()- (bufferImage.getHeight() *0.8));
 					
 					}
 			
@@ -98,6 +99,7 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 		int x=0;
 		int y=0;
 		
+	
 		if(loadImage==false)
 			image=loadPicture();
 		
@@ -112,8 +114,8 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 		y = this.getHeight()/2;
 		y =y-(yHeight/2);
 		
-		g.drawImage(image, x,y,xWidth,yHeight, null);
-		g.dispose();
+		g.drawImage(image, 376,81,xWidth,yHeight, null);
+	
 	}
 	
 
@@ -147,17 +149,18 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 			
 			imageCanvas.setColor(new Color(255,255,255));
 			tl.draw( imageCanvas, x, y);
-			System.out.println("drawing progress" + this.loadingImage);
+			
+			xWidth = 1062;
+			yHeight =597;
 			
 			x =this.getWidth()/2;
 			x = x -(xWidth/2);
 			y = this.getHeight()/2;
 			y =y-(yHeight/2);
-		
+			System.out.println("x and y: " + x + ", " +y);
 			//imageCanvas.drawImage(image, x,y,xWidth,yHeight, null);
-			
 			Graphics2D g = (Graphics2D)this.getGraphics();
-			g.drawImage(image, x,y,xWidth,yHeight, null);
+			g.drawImage(image, 326,81,xWidth,yHeight, null);
 
 	}
 	
@@ -199,8 +202,7 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 		// TODO Auto-generated method stub
 		
 		drawProgress(arg1);
-		System.out.println("loading");
-	
+		
 	}
 	
 
@@ -271,7 +273,7 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
 	private ImageProcessor imgProc;
 	private Border lineBorder;
 	private File backGroundFile; 
-	
+	private Graphics2D g2d;
 	private BufferedImage bufferImage;
 	private BufferedImage bkBufferImage;
     private boolean loadingImage=false;
@@ -284,8 +286,8 @@ public class PictureFrame extends JPanel implements  MouseMotionListener, Compon
     private String title1 = "Loading Picture";
  
 	private String bufferImageStr;
-	private int xWidth=1148;
-	private int yHeight = 460;
+	private int xWidth=1062; //1148;
+	private int yHeight = 597; //460;
 	private String BACKGROUNDIMG ="src/main/resources/picframe.png";
 	
 }
